@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Media — Where Brands Catch Fire</title>
+<meta name="description" content="Match Media is a Washington State social media agency. Done-for-you content creation, strategy, and management for small businesses and nonprofits. Plans start at $499/month.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0A0A08;
+    --black2: #111110;
+    --black3: #1A1A18;
+    --fire: #E8430A;
+    --fire2: #FF6B35;
+    --amber: #F5A623;
+    --white: #F2EFE8;
+    --muted: #888880;
+    --border: rgba(242,239,232,0.08);
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'Barlow', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+  /* PAGE SYSTEM */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.3s, border-color 0.3s;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled { background: rgba(10,10,8,0.95); backdrop-filter: blur(12px); border-color: var(--border); }
+  .nav-logo {
+    font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.05em;
+    color: var(--white); cursor: pointer; text-decoration: none;
+  }
+  .nav-logo span { color: var(--fire); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--body); font-size: 0.78rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--muted); cursor: pointer; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    font-family: var(--display); font-size: 0.95rem; letter-spacing: 0.08em;
+    padding: 0.5rem 1.4rem; background: var(--fire);
+    color: var(--white); border: none; cursor: pointer;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--fire2); }
+
+  /* HERO */
+  #hero-section {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 8rem 2.5rem 4rem; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(232,67,10,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-grain {
+    position: absolute; inset: 0; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+  .hero-tag {
+    font-family: var(--body); font-size: 0.72rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.25em; color: var(--fire);
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;
+  }
+  .hero-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--fire); }
+  .hero-title {
+    font-family: var(--display); font-size: clamp(5rem, 15vw, 13rem);
+    line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 2rem;
+  }
+  .hero-title .fire { color: var(--fire); }
+  .hero-sub {
+    font-size: 1.1rem; font-weight: 300; color: var(--muted);
+    max-width: 480px; line-height: 1.75; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-fire {
+    font-family: var(--display); font-size: 1rem; letter-spacing: 0.08em;
+    padding: 0.85rem 2.2rem; background: var(--fire); color: var(--white);
+    border: none; cursor: pointer; text-decoration: none; transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-fire:hover { background: var(--fire2); }
+  .btn-ghost {
+    font-family: var(--display); font-size: 1rem; letter-spacing: 0.08em;
+    padding: 0.85rem 2.2rem; background: transparent; color: var(--white);
+    border: 1px solid var(--border); cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(242,239,232,0.3); }
+
+  .hero-ticker {
+    position: absolute; bottom: 3rem; left: 0; right: 0;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0; overflow: hidden;
+  }
+  .ticker-inner {
+    display: flex; gap: 3rem; white-space: nowrap;
+    animation: ticker 20s linear infinite;
+  }
+  .ticker-item {
+    font-family: var(--display); font-size: 0.9rem; letter-spacing: 0.15em;
+    color: var(--muted); flex-shrink: 0;
+  }
+  .ticker-item span { color: var(--fire); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 2.5rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    font-size: 0.72rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.25em; color: var(--fire); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--fire); }
+  .section-title {
+    font-family: var(--display); font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 1.5rem;
+  }
+  .section-title .fire { color: var(--fire); }
+
+  /* WHAT WE DO */
+  .what-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; margin-top: 4rem; background: var(--border); }
+  .what-card { background: var(--black2); padding: 2.5rem 2rem; transition: background 0.3s; }
+  .what-card:hover { background: var(--black3); }
+  .what-num { font-family: var(--display); font-size: 3rem; color: var(--fire); opacity: 0.3; margin-bottom: 1rem; }
+  .what-name { font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
+  .what-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+  .what-items { list-style: none; margin-top: 1rem; }
+  .what-items li { font-size: 0.82rem; color: var(--muted); padding: 0.3rem 0; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .what-items li::before { content: '—'; color: var(--fire); font-size: 0.7rem; }
+
+  /* RESULTS */
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .result-card { padding: 2.5rem 2rem; border: 1px solid var(--border); }
+  .result-num { font-family: var(--display); font-size: 4rem; color: var(--fire); line-height: 1; margin-bottom: 0.5rem; }
+  .result-title { font-family: var(--display); font-size: 1.1rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
+  .result-items { list-style: none; }
+  .result-items li { font-size: 0.85rem; color: var(--muted); padding: 0.4rem 0; border-top: 1px solid var(--border); }
+
+  /* HOW IT WORKS */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 4rem; position: relative; }
+  .steps::before { content: ''; position: absolute; top: 2.5rem; left: 16.66%; right: 16.66%; height: 1px; background: linear-gradient(90deg, var(--fire), var(--amber), var(--fire)); opacity: 0.4; }
+  .step { padding: 2rem 1.5rem; text-align: center; }
+  .step-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--fire); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--display); font-size: 1.2rem; }
+  .step-title { font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
+  .step-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+  /* TESTIMONIALS */
+  .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .testimonial { padding: 2rem; border: 1px solid var(--border); position: relative; }
+  .testimonial::before { content: '"'; font-family: var(--display); font-size: 6rem; color: var(--fire); opacity: 0.15; position: absolute; top: -1rem; left: 1.5rem; line-height: 1; }
+  .testimonial-text { font-size: 0.95rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; font-style: italic; font-weight: 300; }
+  .testimonial-author { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+  .testimonial-role { font-size: 0.75rem; color: var(--fire); margin-top: 2px; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--fire); padding: 5rem 2.5rem; text-align: center;
+  }
+  .cta-banner .section-title { color: var(--black); }
+  .cta-banner p { color: rgba(10,10,8,0.7); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; font-weight: 300; }
+  .btn-dark { font-family: var(--display); font-size: 1rem; letter-spacing: 0.08em; padding: 0.85rem 2.2rem; background: var(--black); color: var(--white); border: none; cursor: pointer; text-decoration: none; transition: opacity 0.2s; display: inline-block; margin: 0 0.5rem; }
+  .btn-dark:hover { opacity: 0.85; }
+  .btn-ghost-dark { font-family: var(--display); font-size: 1rem; letter-spacing: 0.08em; padding: 0.85rem 2.2rem; background: transparent; color: var(--black); border: 1px solid rgba(10,10,8,0.3); cursor: pointer; text-decoration: none; transition: border-color 0.2s; display: inline-block; margin: 0 0.5rem; }
+
+  /* ABOUT PAGE */
+  .about-split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-img-box {
+    background: var(--black3); border: 1px solid var(--border);
+    aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .about-img-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+  .about-img-box .match-icon { font-family: var(--display); font-size: 8rem; color: var(--fire); opacity: 0.2; }
+  .about-beliefs { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .belief { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+  .belief-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--fire); margin-bottom: 0.5rem; }
+  .belief-title { font-family: var(--display); font-size: 1.2rem; letter-spacing: 0.03em; margin-bottom: 0.5rem; }
+  .belief-text { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+  /* SERVICES PAGE */
+  .services-list { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .service-row {
+    display: grid; grid-template-columns: 80px 1fr auto;
+    align-items: start; padding: 2.5rem 0; border-top: 1px solid var(--border);
+    gap: 2rem; transition: background 0.2s;
+  }
+  .service-row:last-child { border-bottom: 1px solid var(--border); }
+  .service-num { font-family: var(--display); font-size: 2rem; color: var(--fire); opacity: 0.4; }
+  .service-content-title { font-family: var(--display); font-size: 1.8rem; letter-spacing: 0.02em; margin-bottom: 0.75rem; }
+  .service-content-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 580px; }
+  .service-items-list { list-style: none; margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 8px; }
+  .service-items-list li { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 12px; border: 1px solid var(--border); color: var(--muted); }
+
+  /* BEFORE/AFTER */
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .ba-card { padding: 2.5rem 2rem; }
+  .ba-card.before { border: 1px solid var(--border); }
+  .ba-card.after { background: var(--fire); }
+  .ba-label { font-family: var(--display); font-size: 0.9rem; letter-spacing: 0.2em; margin-bottom: 1rem; opacity: 0.6; }
+  .ba-title { font-family: var(--display); font-size: 2rem; margin-bottom: 1.5rem; }
+  .ba-card.after .ba-title { color: var(--black); }
+  .ba-items { list-style: none; }
+  .ba-items li { font-size: 0.9rem; padding: 0.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .ba-card.after .ba-items li { color: rgba(10,10,8,0.75); border-color: rgba(10,10,8,0.15); }
+  .ba-items li::before { content: '×'; color: var(--fire); font-weight: 700; }
+  .ba-card.after .ba-items li::before { content: '✓'; color: var(--black); }
+
+  /* PRICING */
+  .pricing-box { border: 1px solid var(--border); padding: 3rem; margin-top: 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+  .price-label { font-family: var(--display); font-size: 0.9rem; letter-spacing: 0.2em; color: var(--muted); }
+  .price-amount { font-family: var(--display); font-size: 5rem; color: var(--fire); line-height: 1; }
+  .price-sub { font-size: 0.85rem; color: var(--muted); }
+
+  /* AREAS PAGE */
+  .counties-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .county-card { padding: 2rem; border: 1px solid var(--border); }
+  .county-label { font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; color: var(--fire); margin-bottom: 0.5rem; }
+  .county-name { font-family: var(--display); font-size: 1.8rem; letter-spacing: 0.03em; margin-bottom: 1.25rem; }
+  .county-cities { list-style: none; column-count: 2; column-gap: 1rem; }
+  .county-cities li { font-size: 0.82rem; color: var(--muted); padding: 0.2rem 0; }
+  .areas-desc { margin-top: 3rem; padding: 2.5rem; border: 1px solid var(--border); background: var(--black2); }
+  .areas-desc p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; }
+
+  /* FAQ PAGE */
+  .faq-list { margin-top: 3rem; }
+  .faq-item { border-top: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    font-family: var(--display); font-size: 1.2rem; letter-spacing: 0.02em;
+    padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  }
+  .faq-q::after { content: '+'; color: var(--fire); font-size: 1.5rem; transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { font-size: 0.9rem; color: var(--muted); line-height: 1.75; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.5rem; }
+
+  /* CONTACT PAGE */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; margin-top: 3rem; }
+  .contact-info-item { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+  .contact-info-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--fire); margin-bottom: 0.4rem; }
+  .contact-info-value { font-family: var(--display); font-size: 1.1rem; letter-spacing: 0.03em; }
+  .contact-info-value a { color: var(--white); text-decoration: none; }
+  .contact-quote { margin-top: 3rem; padding: 2rem; border-left: 3px solid var(--fire); background: var(--black2); font-size: 1rem; font-style: italic; color: var(--muted); font-weight: 300; line-height: 1.75; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: var(--black2); border: 1px solid var(--border);
+    padding: 0.85rem 1rem; color: var(--white); font-family: var(--body); font-size: 0.9rem;
+    outline: none; transition: border-color 0.2s; resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--fire); }
+  .form-group select option { background: var(--black2); }
+  .form-submit {
+    font-family: var(--display); font-size: 1.1rem; letter-spacing: 0.08em;
+    padding: 1rem; background: var(--fire); color: var(--white);
+    border: none; cursor: pointer; transition: background 0.2s; margin-top: 4px;
+  }
+  .form-submit:hover { background: var(--fire2); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black2); border-top: 1px solid var(--border);
+    padding: 3rem 2.5rem 2rem;
+  }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .footer-logo { font-family: var(--display); font-size: 1.6rem; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+  .footer-logo span { color: var(--fire); }
+  .footer-tagline { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  .footer-col-title { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--fire); margin-bottom: 1rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); }
+  .footer-social { display: flex; gap: 1.5rem; }
+  .footer-social a { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-social a:hover { color: var(--fire); }
+
+  /* PORTFOLIO PAGE */
+  .portfolio-note { padding: 4rem; border: 1px solid var(--border); text-align: center; margin-top: 3rem; }
+  .portfolio-note p { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem; }
+    nav .nav-links { display: none; }
+    section { padding: 4rem 1.25rem; }
+    .hero-section { padding: 6rem 1.25rem 3rem; }
+    .results-grid, .steps, .counties-grid, .ba-grid { grid-template-columns: 1fr; }
+    .about-split, .contact-grid, .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .service-row { grid-template-columns: 60px 1fr; }
+    .service-row > *:last-child { grid-column: 2; }
+    .steps::before { display: none; }
+    .hero-ticker { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" onclick="showPage('home')">MATCH<span>.</span>MEDIA</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" data-page="home">Home</a></li>
+    <li><a onclick="showPage('about')" data-page="about">About</a></li>
+    <li><a onclick="showPage('services')" data-page="services">Services</a></li>
+    <li><a onclick="showPage('portfolio')" data-page="portfolio">Portfolio</a></li>
+    <li><a onclick="showPage('areas')" data-page="areas">Areas Served</a></li>
+    <li><a onclick="showPage('faq')" data-page="faq">FAQ</a></li>
+  </ul>
+  <a class="nav-cta" onclick="showPage('contact')">Book a Call</a>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <section id="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-inner">
+      <div class="hero-tag">Social Media · Built to Burn Bright</div>
+      <h1 class="hero-title">DONE-FOR-YOU<br>SOCIAL MEDIA<br>FOR WASHINGTON<br><span class="fire">BUSINESSES.</span></h1>
+      <p class="hero-sub">We handle the content, strategy, and posting so you can focus on what you do best. Serving Pierce, King, and Snohomish counties with on-site filming and local expertise.</p>
+      <div class="hero-btns">
+        <a class="btn-fire" onclick="showPage('contact')">Book a Strategy Call</a>
+        <a class="btn-ghost" onclick="showPage('services')">See What We Do</a>
+      </div>
+    </div>
+    <div class="hero-ticker">
+      <div class="ticker-inner">
+        <span class="ticker-item">STRATEGY</span>
+        <span class="ticker-item"><span>·</span> CONTENT</span>
+        <span class="ticker-item"><span>·</span> FILMING</span>
+        <span class="ticker-item"><span>·</span> EDITING</span>
+        <span class="ticker-item"><span>·</span> POSTING</span>
+        <span class="ticker-item"><span>·</span> GROWTH</span>
+        <span class="ticker-item"><span>·</span> PAID ADS</span>
+        <span class="ticker-item"><span>·</span> BRANDING</span>
+        <span class="ticker-item"><span>·</span> STRATEGY</span>
+        <span class="ticker-item"><span>·</span> CONTENT</span>
+        <span class="ticker-item"><span>·</span> FILMING</span>
+        <span class="ticker-item"><span>·</span> EDITING</span>
+        <span class="ticker-item"><span>·</span> POSTING</span>
+        <span class="ticker-item"><span>·</span> GROWTH</span>
+        <span class="ticker-item"><span>·</span> PAID ADS</span>
+        <span class="ticker-item"><span>·</span> BRANDING</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--black2);">
+    <div class="container">
+      <div class="section-tag">/ 01 — What We Do</div>
+      <h2 class="section-title">A FULL-SERVICE<br><span class="fire">CONTENT ENGINE.</span></h2>
+      <p style="color:var(--muted);max-width:520px;font-weight:300;">From strategy to filming to posting — we run the whole thing so your brand shows up the way it's supposed to.</p>
+      <div class="what-grid">
+        <div class="what-card">
+          <div class="what-num">01</div>
+          <div class="what-name">Social Media Management</div>
+          <p class="what-desc">Full-service management — content, posting, and engagement handled for small businesses and nonprofits.</p>
+          <ul class="what-items">
+            <li>Custom content strategy</li>
+            <li>On-site filming across Puget Sound</li>
+            <li>Daily posting + scheduling</li>
+            <li>DM + community engagement</li>
+          </ul>
+        </div>
+        <div class="what-card">
+          <div class="what-num">02</div>
+          <div class="what-name">Content Creation</div>
+          <p class="what-desc">Filming, editing, and direction that actually looks like your brand. Studio available or we come to you.</p>
+          <ul class="what-items">
+            <li>Directed filming</li>
+            <li>All equipment provided</li>
+            <li>Edits optimized for Reels & TikTok</li>
+            <li>Captions in your voice</li>
+          </ul>
+        </div>
+        <div class="what-card">
+          <div class="what-num">03</div>
+          <div class="what-name">Growth Strategy</div>
+          <p class="what-desc">A custom plan built around your audience, voice, and goals. We don't set a plan and disappear.</p>
+          <ul class="what-items">
+            <li>Custom growth strategy</li>
+            <li>Content planning + direction</li>
+            <li>Platform recommendations</li>
+            <li>Ongoing check-ins + reviews</li>
+          </ul>
+        </div>
+        <div class="what-card">
+          <div class="what-num">04</div>
+          <div class="what-name">Paid Ads</div>
+          <p class="what-desc">Targeted ads that amplify your best content — not replace it. When you're ready to expand reach.</p>
+          <ul class="what-items">
+            <li>Ad setup</li>
+            <li>Creative direction</li>
+            <li>Performance tracking</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-tag">/ 02 — Built for Growth</div>
+      <h2 class="section-title">RESULTS THAT<br><span class="fire">ACTUALLY SHOW UP.</span></h2>
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-num">01</div>
+          <div class="result-title">FROM INVISIBLE TO RECOGNIZED</div>
+          <ul class="result-items">
+            <li>Brands going from no presence to consistent daily engagement</li>
+            <li>2x–5x increase in profile activity within 60–90 days</li>
+          </ul>
+        </div>
+        <div class="result-card">
+          <div class="result-num">02</div>
+          <div class="result-title">DONE-FOR-YOU SIMPLICITY</div>
+          <ul class="result-items">
+            <li>We handle your content from idea to execution</li>
+            <li>You focus on running your business</li>
+          </ul>
+        </div>
+        <div class="result-card">
+          <div class="result-num">03</div>
+          <div class="result-title">FROM CONTENT TO CLIENTS</div>
+          <ul class="result-items">
+            <li>Consistent inbound leads generated through your content</li>
+            <li>Built to attract and convert the right audience</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--black2);">
+    <div class="container">
+      <div class="section-tag">/ 03 — How It Works</div>
+      <h2 class="section-title">THREE STEPS.<br><span class="fire">ONE FIRE.</span></h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot">01</div>
+          <div class="step-title">STRATEGY</div>
+          <p class="step-desc">A clear plan built around your brand, audience, and goals.</p>
+        </div>
+        <div class="step">
+          <div class="step-dot">02</div>
+          <div class="step-title">CONTENT + EXECUTION</div>
+          <p class="step-desc">Content created, filmed, and posted for maximum impact.</p>
+        </div>
+        <div class="step">
+          <div class="step-dot">03</div>
+          <div class="step-title">GROWTH + OPTIMIZATION</div>
+          <p class="step-desc">Ongoing improvements based on performance to scale your results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-tag">/ 04 — What Clients Say</div>
+      <h2 class="section-title">REAL BRANDS.<br><span class="fire">REAL HEAT.</span></h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p class="testimonial-text">Match Media just got it right away. We didn't have to over-explain anything. They took what we do and turned it into content that actually feels like us. We've been a lot more consistent online, and people are actually engaging with what we post now, which wasn't happening before.</p>
+          <div class="testimonial-author">Raj S.</div>
+          <div class="testimonial-role">CEO, InTech Consulting</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-text">Honestly, this just made things easier. We didn't have the time to stay consistent online, and now we don't have to think about it. The content still feels true to our mission, and we've had more people reaching out and getting involved.</p>
+          <div class="testimonial-author">Ashlyn S.</div>
+          <div class="testimonial-role">Executive Director, Senior Tech Foundation</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-text">Before this, we'd post here and there and hope for the best. Now it actually feels like there's a plan. We've been getting steady DMs and new clients directly from Instagram, which has been huge for us. It's taken a lot off my plate.</p>
+          <div class="testimonial-author">Sofia R.</div>
+          <div class="testimonial-role">Founder, Elevate Aesthetics Co.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <h2 class="section-title">WHERE BRANDS<br>CATCH FIRE</h2>
+    <p>Build a presence people notice, trust, and remember.</p>
+    <a class="btn-dark" onclick="showPage('contact')">Book Your Free Strategy Call</a>
+    <a class="btn-ghost-dark" onclick="showPage('contact')">Contact Us</a>
+  </div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="page-about">
+  <section style="padding-top:9rem;">
+    <div class="container">
+      <div class="section-tag">/ About Match Media</div>
+      <h1 class="section-title">WE DON'T JUST MANAGE CONTENT.<br>WE BUILD <span class="fire">MOMENTUM.</span></h1>
+      <p style="color:var(--muted);font-size:1.1rem;max-width:600px;font-weight:300;margin-bottom:4rem;">At Match Media, our goal is simple: turn your social presence into something that grows, spreads, and performs. Where Brands Catch Fire isn't just a slogan. It's how we approach every brand we work with.</p>
+      <div class="about-split">
+        <div class="about-img-box">
+          <img src="https://www.thematchmedia.com/assets/match-vertical-B-IoGaES.jpg" alt="A burning matchstick">
+        </div>
+        <div>
+          <div class="section-tag">/ Who We Are</div>
+          <h2 class="section-title" style="font-size:2.5rem;">A SOCIAL AGENCY THAT<br><span class="fire">ACTUALLY GETS IT.</span></h2>
+          <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:1.5rem;font-weight:300;">Match Media helps small businesses and nonprofits show up online in a way that actually reflects who they are. Not over-polished. Not generic. Not copied from whatever's trending that week.</p>
+          <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;font-weight:300;">Most brands either don't have the time to stay consistent or end up posting content that doesn't really feel like them. That's where we come in.</p>
+
+          <div class="about-beliefs">
+            <div class="belief">
+              <div class="belief-tag">What We Believe</div>
+              <div class="belief-title">AN EXTENSION OF YOUR BUSINESS</div>
+              <p class="belief-text">Your online presence shouldn't feel forced or fake. We take the time to understand your vision, then build content around it — not the other way around.</p>
+            </div>
+            <div class="belief">
+              <div class="belief-tag">What We Do</div>
+              <div class="belief-title">START TO FINISH, HANDLED</div>
+              <p class="belief-text">Strategy, filming, editing, posting. You stay consistent without thinking about it. Your brand shows up the way it's supposed to.</p>
+            </div>
+            <div class="belief">
+              <div class="belief-tag">What Makes Us Different</div>
+              <div class="belief-title">BUILT AROUND YOUR BRAND</div>
+              <p class="belief-text">No templates. No recycled ideas. We focus on small businesses and nonprofits because that's where we see the biggest gap and the most potential.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--black2);">
+    <div class="container">
+      <div class="section-tag">/ Why We Started</div>
+      <h2 class="section-title">BEING INVISIBLE<br><span class="fire">IS NOT GROWTH.</span></h2>
+      <p style="color:var(--muted);font-size:1rem;line-height:1.85;max-width:680px;font-weight:300;margin-bottom:1.5rem;">We started Match Media after seeing how many small businesses were either ignored by agencies or stuck paying for services that felt completely disconnected from their brand.</p>
+      <p style="color:var(--muted);font-size:1rem;line-height:1.85;max-width:680px;font-weight:300;">Small businesses deserve better. They deserve content that actually represents them, shows up consistently, and helps them stand out instead of blending in. That's what we set out to change.</p>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <h2 class="section-title">WHERE BRANDS<br>CATCH FIRE</h2>
+    <p>Build a presence people notice, trust, and remember.</p>
+    <a class="btn-dark" onclick="showPage('contact')">Book Your Free Strategy Call</a>
+    <a class="btn-ghost-dark" onclick="showPage('contact')">Contact Us</a>
+  </div>
+</div>
+
+<!-- SERVICES PAGE -->
+<div class="page" id="page-services">
+  <section style="padding-top:9rem;">
+    <div class="container">
+      <div class="section-tag">/ Services</div>
+      <h1 class="section-title">HOW WE BUILD<br>YOUR <span class="fire">ONLINE PRESENCE.</span></h1>
+      <p style="color:var(--muted);font-size:1.05rem;max-width:560px;font-weight:300;margin-bottom:1.5rem;">We build and manage your content so you show up consistently, look credible, and stay top of mind. No guesswork. No generic templates. Just content that actually reflects your brand.</p>
+      <a class="btn-fire" onclick="showPage('contact')">Book Your Free Strategy Call</a>
+
+      <div class="section-tag" style="margin-top:4rem;">/ What We Offer</div>
+      <h2 class="section-title">FOUR PILLARS.<br><span class="fire">ONE SYSTEM.</span></h2>
+
+      <div class="services-list">
+        <div class="service-row">
+          <div class="service-num">01</div>
+          <div>
+            <div class="service-content-title">FULL-SERVICE SOCIAL MEDIA MANAGEMENT</div>
+            <p class="service-content-desc">Built for busy small business owners and nonprofit leaders. From custom strategy and on-site filming at your Puget Sound location to daily posting and audience engagement, we handle every detail.</p>
+            <ul class="service-items-list">
+              <li>Custom content strategy</li>
+              <li>On-site filming</li>
+              <li>Daily posting + scheduling</li>
+              <li>DM + community engagement</li>
+              <li>Performance tracking</li>
+              <li>Monthly reporting</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-row">
+          <div class="service-num">02</div>
+          <div>
+            <div class="service-content-title">CONTENT CREATION</div>
+            <p class="service-content-desc">Filming handled for you. Studio available or we come to you. No equipment or experience needed. Edits optimized for the platforms that matter most.</p>
+            <ul class="service-items-list">
+              <li>Directed filming</li>
+              <li>All equipment provided</li>
+              <li>Studio or on-site</li>
+              <li>Reels & TikTok edits</li>
+              <li>Captions in your voice</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-row">
+          <div class="service-num">03</div>
+          <div>
+            <div class="service-content-title">STRATEGY & CONSULTING</div>
+            <p class="service-content-desc">We don't set a plan and disappear. We stay involved and adjust as your brand grows. A custom plan built around your audience, voice, and goals.</p>
+            <ul class="service-items-list">
+              <li>Custom growth strategy</li>
+              <li>Content planning + direction</li>
+              <li>Platform recommendations</li>
+              <li>Ongoing check-ins + reviews</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-row">
+          <div class="service-num">04</div>
+          <div>
+            <div class="service-content-title">PAID ADS (OPTIONAL)</div>
+            <p class="service-content-desc">When you're ready to expand reach, we layer in targeted ads that support your content — not replace it.</p>
+            <ul class="service-items-list">
+              <li>Ad setup</li>
+              <li>Creative direction</li>
+              <li>Performance tracking & adjustments</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--black2);">
+    <div class="container">
+      <div class="section-tag">/ Before & After</div>
+      <h2 class="section-title">FROM FLATLINE<br><span class="fire">TO FIRELINE.</span></h2>
+      <div class="ba-grid">
+        <div class="ba-card before">
+          <div class="ba-label">BEFORE</div>
+          <div class="ba-title">DEAD AIR.</div>
+          <ul class="ba-items">
+            <li>Inconsistent posting</li>
+            <li>Content that doesn't reflect your brand</li>
+            <li>Low engagement or no traction</li>
+          </ul>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-label" style="color:rgba(10,10,8,0.5);">AFTER</div>
+          <div class="ba-title" style="color:var(--black);">FULL FLAME.</div>
+          <ul class="ba-items">
+            <li>Consistent, intentional presence</li>
+            <li>Content that actually feels like your brand</li>
+            <li>Stronger engagement and visibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-tag">/ Pricing</div>
+      <h2 class="section-title">AFFORDABLE.<br><span class="fire">FULLY CUSTOM.</span></h2>
+      <div class="pricing-box">
+        <div>
+          <div class="price-label">STARTING AT</div>
+          <div class="price-amount">$499<span style="font-size:2rem;">/mo</span></div>
+          <p class="price-sub">Customized based on your content needs and posting schedule.</p>
+        </div>
+        <a class="btn-fire" onclick="showPage('contact')">Book a Strategy Call</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <h2 class="section-title">WHERE BRANDS<br>CATCH FIRE</h2>
+    <p>Build a presence people notice, trust, and remember.</p>
+    <a class="btn-dark" onclick="showPage('contact')">Book Your Free Strategy Call</a>
+    <a class="btn-ghost-dark" onclick="showPage('contact')">Contact Us</a>
+  </div>
+</div>
+
+<!-- PORTFOLIO PAGE -->
+<div class="page" id="page-portfolio">
+  <section style="padding-top:9rem;">
+    <div class="container">
+      <div class="section-tag">/ Portfolio</div>
+      <h1 class="section-title">OUR WORK<br><span class="fire">SPEAKS ITSELF.</span></h1>
+      <div class="portfolio-note">
+        <p>Portfolio content is best experienced in person or via a direct call. We'd love to show you examples relevant to your industry.</p>
+        <a class="btn-fire" onclick="showPage('contact')">Book a Call to See Our Work</a>
+      </div>
+    </div>
+  </section>
+  <div class="cta-banner">
+    <h2 class="section-title">WHERE BRANDS<br>CATCH FIRE</h2>
+    <p>Build a presence people notice, trust, and remember.</p>
+    <a class="btn-dark" onclick="showPage('contact')">Book Your Free Strategy Call</a>
+  </div>
+</div>
+
+<!-- AREAS PAGE -->
+<div class="page" id="page-areas">
+  <section style="padding-top:9rem;">
+    <div class="container">
+      <div class="section-tag">/ Areas Served</div>
+      <h1 class="section-title">PROUDLY SERVING<br><span class="fire">WASHINGTON STATE.</span></h1>
+      <p style="color:var(--muted);font-size:1.05rem;max-width:620px;font-weight:300;margin-bottom:1rem;">Match Media is a local social media agency based in Washington State, working with small businesses and nonprofits across <strong style="color:var(--white);">Pierce, King, and Snohomish counties</strong>. On-site filming, in-studio production, and fully remote management — all available across the Puget Sound region.</p>
+      <div style="display:flex;gap:1rem;margin-bottom:3rem;flex-wrap:wrap;">
+        <a class="btn-fire" onclick="showPage('contact')">Contact Us</a>
+        <a class="btn-ghost" onclick="showPage('services')">Our Services</a>
+      </div>
+
+      <div class="counties-grid">
+        <div class="county-card">
+          <div class="county-label">Tacoma, WA</div>
+          <div class="county-name">PIERCE COUNTY</div>
+          <ul class="county-cities">
+            <li>Tacoma</li><li>Puyallup</li><li>Lakewood</li><li>Gig Harbor</li>
+            <li>University Place</li><li>Bonney Lake</li><li>Sumner</li><li>Fife</li>
+            <li>Edgewood</li><li>Spanaway</li><li>Parkland</li><li>Graham</li>
+            <li>Eatonville</li><li>Orting</li><li>Fircrest</li><li>Steilacoom</li>
+            <li>DuPont</li><li>Buckley</li>
+          </ul>
+        </div>
+        <div class="county-card">
+          <div class="county-label">Seattle, WA</div>
+          <div class="county-name">KING COUNTY</div>
+          <ul class="county-cities">
+            <li>Seattle</li><li>Bellevue</li><li>Redmond</li><li>Kirkland</li>
+            <li>Renton</li><li>Kent</li><li>Auburn</li><li>Federal Way</li>
+            <li>Burien</li><li>SeaTac</li><li>Tukwila</li><li>Issaquah</li>
+            <li>Sammamish</li><li>Mercer Island</li><li>Shoreline</li><li>Bothell</li>
+            <li>Woodinville</li><li>Maple Valley</li><li>Covington</li><li>Des Moines</li>
+            <li>Newcastle</li><li>Snoqualmie</li><li>North Bend</li><li>Enumclaw</li>
+          </ul>
+        </div>
+        <div class="county-card">
+          <div class="county-label">Everett, WA</div>
+          <div class="county-name">SNOHOMISH COUNTY</div>
+          <ul class="county-cities">
+            <li>Everett</li><li>Lynnwood</li><li>Edmonds</li><li>Mill Creek</li>
+            <li>Mukilteo</li><li>Marysville</li><li>Arlington</li><li>Monroe</li>
+            <li>Snohomish</li><li>Lake Stevens</li><li>Mountlake Terrace</li><li>Brier</li>
+            <li>Granite Falls</li><li>Stanwood</li><li>Gold Bar</li><li>Sultan</li><li>Darrington</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="areas-desc">
+        <div class="section-tag">/ A Local Team. Real Range.</div>
+        <p>Working with a Washington-based agency means your content actually understands your audience — the neighborhoods, the seasons, the local language. We know the difference between a Tacoma small business and a Bellevue startup, and we build content that fits. We film on-site anywhere in the Puget Sound region, host shoots in-studio, and manage accounts fully remotely for clients across Pierce, King, and Snohomish counties.</p>
+      </div>
+    </div>
+  </section>
+  <div class="cta-banner">
+    <h2 class="section-title">WHERE BRANDS<br>CATCH FIRE</h2>
+    <p>Build a presence people notice, trust, and remember.</p>
+    <a class="btn-dark" onclick="showPage('contact')">Book Your Free Strategy Call</a>
+  </div>
+</div>
+
+<!-- FAQ PAGE -->
+<div class="page" id="page-faq">
+  <section style="padding-top:9rem;">
+    <div class="container">
+      <div class="section-tag">/ FAQ</div>
+      <h1 class="section-title">QUICK <span class="fire">ANSWERS.</span></h1>
+      <p style="color:var(--muted);margin-bottom:1rem;">Don't see your question? <a onclick="showPage('contact')" style="color:var(--fire);cursor:pointer;">Contact us</a> and we'll get back to you.</p>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">01 — What types of businesses do you work with?</div>
+          <div class="faq-a">We work primarily with small businesses and nonprofits across Washington State. Restaurants, salons, fitness studios, consultants, retail shops, service providers — if you need a consistent, professional social presence and don't have time to do it yourself, we're a fit.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">02 — Do you provide on-site filming for our content?</div>
+          <div class="faq-a">Yes. We film on-site anywhere in the Puget Sound region — Pierce, King, and Snohomish counties. We bring all equipment and direct the shoot so you know exactly what to do. We also have studio availability for certain content types.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">03 — How do you create a social media strategy?</div>
+          <div class="faq-a">We start with a strategy call to understand your brand, audience, and goals. From there we build a custom content plan — posting cadence, platform focus, content formats, and creative direction — all tailored to your business, not a template.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">04 — Are services customizable?</div>
+          <div class="faq-a">Every plan is custom. We don't sell packages off a shelf. After your strategy call, we put together a plan that fits your content needs, posting frequency, and budget. Pricing starts at $499/month and scales from there.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">05 — Do you work with small businesses?</div>
+          <div class="faq-a">That's exactly who we built this for. Small businesses are our focus — not enterprise brands. We understand the budget constraints, the limited time, and the need for content that feels real, not corporate.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">06 — Do you provide filming?</div>
+          <div class="faq-a">Yes — filming is included in our full-service plans. We come to your location with all equipment, direct the shoot, capture everything we need, and handle all editing and optimization for each platform.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">07 — Can I send my own content?</div>
+          <div class="faq-a">Absolutely. If you want to capture content yourself and have us handle strategy, editing, and posting, we can work with that too. We're flexible depending on what makes sense for your situation.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">08 — Do you manage DMs?</div>
+          <div class="faq-a">Yes, DM and community engagement is included in our full-service management plans. We respond to comments, DMs, and keep your audience engaged on your behalf — all in your brand's voice.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">09 — How long until I see results?</div>
+          <div class="faq-a">Most clients see noticeable increases in engagement and profile activity within 60–90 days of consistent posting. Social media growth is a long game, but with the right strategy and content, momentum builds quickly. We track performance monthly and adjust accordingly.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="cta-banner">
+    <h2 class="section-title">WHERE BRANDS<br>CATCH FIRE</h2>
+    <p>Build a presence people notice, trust, and remember.</p>
+    <a class="btn-dark" onclick="showPage('contact')">Book Your Free Strategy Call</a>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <section style="padding-top:9rem;">
+    <div class="container">
+      <div class="section-tag">/ Contact</div>
+      <h1 class="section-title">LET'S BUILD YOUR<br><span class="fire">ONLINE PRESENCE.</span></h1>
+
+      <div class="contact-grid">
+        <div>
+          <p style="color:var(--muted);font-size:0.95rem;margin-bottom:2rem;font-weight:300;">Fill this out and we'll come into your call with a clear direction for your brand.</p>
+          <div class="contact-info-item">
+            <div class="contact-info-label">Phone</div>
+            <div class="contact-info-value"><a href="tel:2536175848">(253) 617-5848</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-value"><a href="mailto:annah@thematchmedia.com">annah@thematchmedia.com</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-label">Calendar</div>
+            <div class="contact-info-value"><a href="https://calendly.com/" target="_blank">Book a Strategy Call</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-label">Social</div>
+            <div style="display:flex;gap:1rem;margin-top:0.5rem;flex-wrap:wrap;">
+              <a href="https://instagram.com/mymatchmedia" target="_blank" style="font-size:0.75rem;color:var(--muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;">Instagram</a>
+              <a href="https://tiktok.com/@mymatchmedia" target="_blank" style="font-size:0.75rem;color:var(--muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;">TikTok</a>
+              <a href="https://facebook.com/mymatchmedia" target="_blank" style="font-size:0.75rem;color:var(--muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;">Facebook</a>
+              <a href="https://linkedin.com/company/mymatchmedia" target="_blank" style="font-size:0.75rem;color:var(--muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;">LinkedIn</a>
+            </div>
+          </div>
+          <div class="contact-quote">"We don't just manage content. We build momentum." — Match Media</div>
+        </div>
+
+        <form class="contact-form" id="matchContactForm">
+          <input type="hidden" name="access_key" value="05417659-61fc-469b-ad17-a982e99ba202">
+          <input type="hidden" name="subject" value="New Inquiry — Match Media">
+          <input type="hidden" name="from_name" value="Match Media Website">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" name="business" placeholder="Your business name" required>
+          </div>
+          <div class="form-group">
+            <label>What Are You Looking For?</label>
+            <select name="service" required>
+              <option value="" disabled selected>Select an option...</option>
+              <option>Full-Service Social Media Management</option>
+              <option>Content Creation Only</option>
+              <option>Strategy & Consulting</option>
+              <option>Paid Ads</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Budget & Timeline (Optional)</label>
+            <input type="text" name="budget" placeholder="e.g. $500–800/mo, starting next month">
+          </div>
+          <button type="submit" class="form-submit" id="matchSubmitBtn">SEND & BOOK CALL →</button>
+          <p style="font-size:0.75rem;color:var(--muted);margin-top:6px;">We'll get back to you within 1 business day.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">MATCH<span>.</span>MEDIA</div>
+      <p class="footer-tagline">Where Brands Catch Fire. Social media management, content, and growth strategy for small businesses and nonprofits across Washington State.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <ul class="footer-links">
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('about')">About</a></li>
+        <li><a onclick="showPage('services')">Services</a></li>
+        <li><a onclick="showPage('portfolio')">Portfolio</a></li>
+        <li><a onclick="showPage('areas')">Areas Served</a></li>
+        <li><a onclick="showPage('faq')">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Get In Touch</div>
+      <ul class="footer-links">
+        <li><a onclick="showPage('contact')">Contact Us</a></li>
+        <li><a href="tel:2536175848">(253) 617-5848</a></li>
+        <li><a href="mailto:annah@thematchmedia.com">annah@thematchmedia.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Match Media. All rights reserved. Light the spark. Watch it grow.</p>
+    <div class="footer-social">
+      <a href="https://instagram.com/mymatchmedia" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@mymatchmedia" target="_blank">TikTok</a>
+      <a href="https://facebook.com/mymatchmedia" target="_blank">Facebook</a>
+      <a href="https://linkedin.com/company/mymatchmedia" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Page routing
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === name);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  // Contact form — Web3Forms
+  const matchForm = document.getElementById('matchContactForm');
+  const matchBtn = document.getElementById('matchSubmitBtn');
+  if (matchForm) {
+    matchForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      matchBtn.textContent = 'SENDING...';
+      matchBtn.disabled = true;
+      const formData = new FormData(matchForm);
+      const json = JSON.stringify(Object.fromEntries(formData));
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: json
+        });
+        const result = await res.json();
+        if (result.success) {
+          matchBtn.textContent = 'MESSAGE SENT ✓';
+          matchBtn.style.background = '#2A7A55';
+          matchForm.reset();
+        } else {
+          matchBtn.textContent = 'ERROR — TRY AGAIN';
+          matchBtn.style.background = '#C0392B';
+          matchBtn.disabled = false;
+        }
+      } catch {
+        matchBtn.textContent = 'ERROR — TRY AGAIN';
+        matchBtn.style.background = '#C0392B';
+        matchBtn.disabled = false;
+      }
+    });
+  }
+</script>
+</body>
+</html>
